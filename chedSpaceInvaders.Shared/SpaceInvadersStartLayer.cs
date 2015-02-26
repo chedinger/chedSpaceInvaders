@@ -11,11 +11,24 @@ namespace chedSpaceInvaders.Shared
 		public SpaceInvadersStartLayer() 
 			: base()
 		{
+			InitializeTouchListener ();
+
 			Color = CCColor3B.Black;
 
 			space = new CCSprite("startupBG");
 			AddChild (space);
+
 			CCSimpleAudioEngine.SharedEngine.PlayEffect("sounds/startup");
+		}
+
+		private void  InitializeTouchListener ()
+		{
+			var touchListener = new CCEventListenerTouchAllAtOnce ();
+
+			touchListener.OnTouchesEnded = 
+				(touches, ccevent) => Window.DefaultDirector.ReplaceScene (SpaceInvadersGameLayer.SpaceInvadersGameScene (Window));
+
+			AddEventListener (touchListener, this);
 		}
 
 		protected override void AddedToScene ()
