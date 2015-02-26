@@ -20,7 +20,7 @@ namespace chedSpaceInvaders.Shared
 		private void LoadSoundEffects ()
 		{
 			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("sounds/startup");
-			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("startup");
+			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("sounds/explosion");
 		}
 
 		public override void ApplicationDidEnterBackground (CCApplication application)

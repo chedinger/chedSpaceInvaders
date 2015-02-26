@@ -13,7 +13,8 @@ namespace chedSpaceInvaders.Shared
 		{
 			Color = CCColor3B.Black;
 
-			AddChild ((space = new CCSprite("startupBG")));
+			space = new CCSprite("startupBG");
+			AddChild (space);
 			CCSimpleAudioEngine.SharedEngine.PlayEffect("sounds/startup");
 		}
 

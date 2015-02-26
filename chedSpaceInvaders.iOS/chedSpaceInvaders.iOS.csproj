@@ -120,9 +120,6 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
-    <None Include="Content\sounds\explosion.mp3" />
-    <None Include="Content\sounds\startup.mp3" />
-    <None Include="Content\fonts\arial-22.xnb" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -137,6 +134,9 @@
     <Folder Include="Content\sounds\" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Content\sounds\explosion.mp3" />
+    <BundleResource Include="Content\sounds\startup.mp3" />
     <BundleResource Include="Content\hd\startupBG.jpg" />
+    <BundleResource Include="Content\fonts\arial-22.xnb" />
   </ItemGroup>
 </Project>
