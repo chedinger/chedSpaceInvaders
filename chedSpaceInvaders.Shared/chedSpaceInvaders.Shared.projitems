@@ -10,5 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SpaceInvadersApplicationDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpaceInvadersStartLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SceneProvider.cs" />
   </ItemGroup>
 </Project>

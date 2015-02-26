@@ -11,8 +11,6 @@ namespace chedSpaceInvaders.Shared
 			application.PreferMultiSampling = false;
 			application.ContentRootDirectory = "Content";
 
-			mainWindow.SupportedDisplayOrientations = CCDisplayOrientation.Portrait;
-
 			application.ContentSearchPaths.Add ("hd");
 
 			LoadSoundEffects ();
