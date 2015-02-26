@@ -14,18 +14,13 @@ namespace chedSpaceInvaders.Shared
 			application.ContentSearchPaths.Add ("hd");
 
 			LoadSoundEffects ();
-			LoadStartScene ();
+			mainWindow.RunWithScene (SpaceInvadersStartLayer.SpaceInvadersStartScene(mainWindow));
 		}
 
 		private void LoadSoundEffects ()
 		{
 			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("sounds/startup");
 			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("startup");
-		}
-
-		private void LoadStartScene ()
-		{
-
 		}
 
 		public override void ApplicationDidEnterBackground (CCApplication application)
