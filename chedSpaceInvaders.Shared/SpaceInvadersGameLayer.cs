@@ -6,15 +6,21 @@ namespace chedSpaceInvaders.Shared
 	public class SpaceInvadersGameLayer : CCLayerColor
 	{
 		private const string SCROLLING_BG = "scrollingBG";
+
+		private CCSpriteSheet spriteSheet;
 		private CCSprite bgPart1;
 		private CCSprite bgPart2;
+		private CCSprite spaceShip;
 
 		public SpaceInvadersGameLayer ()
 		{
-			InitializeScrollingBackground ();
+			spriteSheet = new CCSpriteSheet ("animations/spaceSprites.plist");
+
+			AddScrollingBackground ();
+			AddSpaceShip ();
 		}
 
-		private void InitializeScrollingBackground ()
+		private void AddScrollingBackground ()
 		{
 			bgPart1 = new CCSprite (SCROLLING_BG);
 			bgPart1.AnchorPoint = new CCPoint (0, 0);
@@ -26,6 +32,12 @@ namespace chedSpaceInvaders.Shared
 			bgPart2.Position = new CCPoint (0, bgPart1.BoundingBox.Size.Height);
 			AddChild (bgPart2);
 			Schedule (t => Scroll (new CCDelayTime (0.01f)));
+		}
+
+		private void AddSpaceShip ()
+		{
+			spaceShip = new CCSprite (spriteSheet.Frames.Find ((x) => x.TextureFilename.StartsWith ("spaceship")));
+			AddChild (spaceShip);
 		}
 
 		private void Scroll(CCDelayTime dt) 
@@ -43,6 +55,8 @@ namespace chedSpaceInvaders.Shared
 		protected override void AddedToScene ()
 		{
 			base.AddedToScene ();
+
+			spaceShip.Position = new CCPoint(VisibleBoundsWorldspace.MidX, 100);
 
 			Scene.SceneResolutionPolicy = CCSceneResolutionPolicy.NoBorder;
 		}
