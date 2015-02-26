@@ -54,13 +54,7 @@ namespace chedSpaceInvaders.Shared
 
 		public static CCScene SpaceInvadersStartScene (CCWindow mainWindow)
 		{
-			var scene = new CCScene (mainWindow);
-			var layer = new SpaceInvadersStartLayer ();
-
-			scene.AddChild (layer);
-
-			return scene;
-			//return SceneProvider.GetScene<SpaceInvadersStartLayer> (mainWindow);
+			return SceneProvider.GetScene<SpaceInvadersStartLayer> (mainWindow);
 		}
 	}
 }
