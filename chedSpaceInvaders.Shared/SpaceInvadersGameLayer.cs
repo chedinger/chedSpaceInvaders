@@ -1,16 +1,21 @@
 ﻿using System;
 using CocosSharp;
+using System.Collections.Generic;
 
 namespace chedSpaceInvaders.Shared
 {
 	public class SpaceInvadersGameLayer : CCLayerColor
 	{
 		private const string SCROLLING_BG = "scrollingBG";
+		private const float SPACE_SHIP_SPEED = 400.0f;
+		private const int MIN_SPACE_SHIP_Y_POSITION = 100;
 
 		private CCSpriteSheet spriteSheet;
 		private CCSprite bgPart1;
 		private CCSprite bgPart2;
 		private CCSprite spaceShip;
+
+		private int tabCount;
 
 		public SpaceInvadersGameLayer ()
 		{
@@ -34,12 +39,6 @@ namespace chedSpaceInvaders.Shared
 			Schedule (t => Scroll (new CCDelayTime (0.01f)));
 		}
 
-		private void AddSpaceShip ()
-		{
-			spaceShip = new CCSprite (spriteSheet.Frames.Find ((x) => x.TextureFilename.StartsWith ("spaceship")));
-			AddChild (spaceShip);
-		}
-
 		private void Scroll(CCDelayTime dt) 
 		{
 			bgPart1.Position = new CCPoint (bgPart1.Position.X, bgPart1.Position.Y - 1);
@@ -52,11 +51,58 @@ namespace chedSpaceInvaders.Shared
 				bgPart2.Position = new CCPoint (bgPart1.Position.X, bgPart2.Position.Y + (bgPart1.BoundingBox.Size.Height * 2));
 		}
 
+		private void AddSpaceShip ()
+		{
+			spaceShip = new CCSprite (spriteSheet.Frames.Find ((x) => x.TextureFilename.StartsWith ("spaceship")));
+			AddChild (spaceShip);
+
+			var touchListener = new CCEventListenerTouchAllAtOnce ();
+			touchListener.OnTouchesEnded = OnTouchesEnded;
+			AddEventListener (touchListener, this);
+
+//			var doubleTapListener = new CCEventListenerTouchOneByOne ();
+//			doubleTapListener.OnTouchEnded = OnTouchEnded;
+//			spaceShip.AddEventListener (doubleTapListener);
+		}
+
+		private void OnTouchesEnded(List<CCTouch> touches, CCEvent touchEvent)
+		{
+			spaceShip.StopAllActions ();
+
+
+			var location = touches [0].LocationOnScreen;
+			location = WorldToScreenspace (location); 
+
+			if (location.Y < MIN_SPACE_SHIP_Y_POSITION)
+				location.Y = MIN_SPACE_SHIP_Y_POSITION;
+
+			float ds = CCPoint.Distance (spaceShip.Position, location);
+
+			var dt = ds / SPACE_SHIP_SPEED;
+
+			var moveSpaceShip = new CCMoveTo (dt, location);
+			spaceShip.RunActions (moveSpaceShip);
+		}
+
+		private void OnTouchEnded (CCTouch touch, CCEvent touchEvent)
+		{
+			tabCount++;
+
+			if (tabCount.Equals (1)) 
+			{
+				new CCDelayTime (1000f);
+			} 
+			else if (tabCount.Equals (2)) 
+			{
+				var tst = 2;
+			}
+		}
+
 		protected override void AddedToScene ()
 		{
 			base.AddedToScene ();
 
-			spaceShip.Position = new CCPoint(VisibleBoundsWorldspace.MidX, 100);
+			spaceShip.Position = new CCPoint(VisibleBoundsWorldspace.MidX, MIN_SPACE_SHIP_Y_POSITION);
 
 			Scene.SceneResolutionPolicy = CCSceneResolutionPolicy.NoBorder;
 		}
