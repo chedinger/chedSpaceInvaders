@@ -13,7 +13,10 @@ namespace chedSpaceInvaders.Shared
 
 			application.ContentSearchPaths.Add ("hd");
 
+			CCSize winSize = mainWindow.WindowSizeInPixels;
+
 			LoadSoundEffects ();
+			mainWindow.SetDesignResolutionSize(winSize.Width, winSize.Height, CCSceneResolutionPolicy.ExactFit);
 			mainWindow.RunWithScene (SpaceInvadersStartLayer.SpaceInvadersStartScene(mainWindow));
 		}
 

@@ -132,11 +132,15 @@
     <Folder Include="Content\fonts\" />
     <Folder Include="Content\hd\" />
     <Folder Include="Content\sounds\" />
+    <Folder Include="Content\hd\animations\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Content\sounds\explosion.mp3" />
     <BundleResource Include="Content\sounds\startup.mp3" />
     <BundleResource Include="Content\hd\startupBG.jpg" />
     <BundleResource Include="Content\fonts\arial-22.xnb" />
+    <BundleResource Include="Content\hd\animations\spaceSprites.png" />
+    <BundleResource Include="Content\hd\animations\spaceSprites.plist" />
+    <BundleResource Include="Content\hd\scrollingBG.png" />
   </ItemGroup>
 </Project>
