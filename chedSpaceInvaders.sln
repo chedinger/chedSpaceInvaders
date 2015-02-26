@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chedSpaceInvaders.iOS", "chedSpaceInvaders.iOS\chedSpaceInvaders.iOS.csproj", "{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "chedSpaceInvaders.Shared", "chedSpaceInvaders.Shared\chedSpaceInvaders.Shared.shproj", "{FE16276E-2250-4F3C-869E-9E1B5D33B3AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Debug|iPhone.Build.0 = Debug|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Release|iPhone.ActiveCfg = Release|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Release|iPhone.Build.0 = Release|iPhone
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+EndGlobal
