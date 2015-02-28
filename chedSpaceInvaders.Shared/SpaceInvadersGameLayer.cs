@@ -18,8 +18,6 @@ namespace chedSpaceInvaders.Shared
 
 		private MeteroiteProvider meteroiteProvider;
 
-		private int tabCount;
-
 		public SpaceInvadersGameLayer ()
 		{
 			spriteSheet = new CCSpriteSheet ("animations/spaceSprites.plist");
@@ -28,7 +26,9 @@ namespace chedSpaceInvaders.Shared
 
 			AddScrollingBackground ();
 			AddSpaceShip ();
-			AddMeteroite ();
+			AddOneShotMeteroite ();
+
+			AddSchedules ();
 		}
 
 		private void AddScrollingBackground ()
@@ -90,12 +90,17 @@ namespace chedSpaceInvaders.Shared
 			spaceShip.RunActions (moveSpaceShip);
 		}
 
-		private CCSprite AddMeteroite()
+		private CCSprite AddOneShotMeteroite()
 		{
 			CCSprite meteroite = this.meteroiteProvider.GetOneShotMeteroite ();
 			AddChild (meteroite);
 
 			return meteroite;
+		}
+
+		private void AddSchedules ()
+		{
+			Schedule(t => AddOneShotMeteroite(), 2f);
 		}
 
 		protected override void AddedToScene ()
