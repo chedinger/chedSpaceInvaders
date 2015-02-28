@@ -26,7 +26,6 @@ namespace chedSpaceInvaders.Shared
 
 			AddScrollingBackground ();
 			AddSpaceShip ();
-			AddOneShotMeteroite ();
 
 			AddSchedules ();
 		}
@@ -67,11 +66,6 @@ namespace chedSpaceInvaders.Shared
 			AddEventListener (touchListener, this);
 		}
 
-		private void ResetTabCount(CCDelayTime dt)
-		{
-			tabCount = 0;
-		}
-
 		private void OnTouchesEnded(List<CCTouch> touches, CCEvent touchEvent)
 		{
 			spaceShip.StopAllActions ();
@@ -100,7 +94,16 @@ namespace chedSpaceInvaders.Shared
 
 		private void AddSchedules ()
 		{
-			Schedule(t => AddOneShotMeteroite(), 2f);
+			Schedule(t => AddOneShotMeteroite(), 3f);
+			Schedule (t => AddMeteoriteFire (), 15f);
+		}
+
+		private CCSprite AddMeteoriteFire ()
+		{
+			CCSprite meteoriteFire = this.meteroiteProvider.GetMeteoriteFire ();
+			AddChild (meteoriteFire);
+
+			return meteoriteFire;
 		}
 
 		protected override void AddedToScene ()

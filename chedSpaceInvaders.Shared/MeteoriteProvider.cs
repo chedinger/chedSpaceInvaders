@@ -8,8 +8,10 @@ namespace chedSpaceInvaders.Shared
 		private const string ONE_SHOT_METEROITE = "meteorite.png";
 		private const string ONE_SHOT_METEROITE1 = "meteorite1.png";
 		private const string ONE_SHOT_METEROITE2 = "meteorite2.png";
+		private const string METEORITE_FIRE = "meteoriteFire.png";
 
 		private int currentOneShotMeteroite = 0;
+		private int currentMeteoriteFire = 0;
 
 		private CCSpriteSheet spriteSheet;
 
@@ -61,6 +63,29 @@ namespace chedSpaceInvaders.Shared
 			meteroite.RepeatForever (rotateSpeedMeteroiteSlow);
 
 			return meteroite;
+		}
+
+		public CCSprite GetMeteoriteFire()
+		{
+			currentMeteoriteFire++;
+			var fromLeftToRight = (currentMeteoriteFire % 2) == 0;
+			var meteoriteFire = new CCSprite (spriteSheet.Frames.Find (x => x.TextureFilename.Equals (METEORITE_FIRE)));
+
+			meteoriteFire.Position = fromLeftToRight
+				? new CCPoint (0, 1136)
+				: new CCPoint (752, 1136);
+			meteoriteFire.Scale = 0.25f;
+
+			var meteoriteFireMove = new CCMoveTo(5.0f, (currentMeteoriteFire % 2) == 0
+				? new CCPoint (752, -100)
+				: new CCPoint (-100, -100));
+
+			meteoriteFire.RunAction (meteoriteFireMove);
+
+			if ( ! fromLeftToRight)
+				meteoriteFire.Rotation = 90;
+
+			return meteoriteFire;
 		}
 	}
 }
