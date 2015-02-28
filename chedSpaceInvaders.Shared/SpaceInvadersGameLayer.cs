@@ -9,11 +9,14 @@ namespace chedSpaceInvaders.Shared
 		private const string SCROLLING_BG = "scrollingBG";
 		private const float SPACE_SHIP_SPEED = 400.0f;
 		private const int MIN_SPACE_SHIP_Y_POSITION = 100;
+		private const string METEROITE_SPRITE_ID = "meteorite";
 
 		private CCSpriteSheet spriteSheet;
 		private CCSprite bgPart1;
 		private CCSprite bgPart2;
 		private CCSprite spaceShip;
+
+		private MeteroiteProvider meteroiteProvider;
 
 		private int tabCount;
 
@@ -21,8 +24,11 @@ namespace chedSpaceInvaders.Shared
 		{
 			spriteSheet = new CCSpriteSheet ("animations/spaceSprites.plist");
 
+			meteroiteProvider = new MeteroiteProvider (spriteSheet);
+
 			AddScrollingBackground ();
 			AddSpaceShip ();
+			AddMeteroite ();
 		}
 
 		private void AddScrollingBackground ()
@@ -36,7 +42,7 @@ namespace chedSpaceInvaders.Shared
 			bgPart2.AnchorPoint = new CCPoint (0, 0);
 			bgPart2.Position = new CCPoint (0, bgPart1.BoundingBox.Size.Height);
 			AddChild (bgPart2);
-			Schedule (t => Scroll (new CCDelayTime (0.01f)));
+			Schedule (t => Scroll (new CCDelayTime (1000f)));
 		}
 
 		private void Scroll(CCDelayTime dt) 
@@ -59,16 +65,16 @@ namespace chedSpaceInvaders.Shared
 			var touchListener = new CCEventListenerTouchAllAtOnce ();
 			touchListener.OnTouchesEnded = OnTouchesEnded;
 			AddEventListener (touchListener, this);
+		}
 
-//			var doubleTapListener = new CCEventListenerTouchOneByOne ();
-//			doubleTapListener.OnTouchEnded = OnTouchEnded;
-//			spaceShip.AddEventListener (doubleTapListener);
+		private void ResetTabCount(CCDelayTime dt)
+		{
+			tabCount = 0;
 		}
 
 		private void OnTouchesEnded(List<CCTouch> touches, CCEvent touchEvent)
 		{
 			spaceShip.StopAllActions ();
-
 
 			var location = touches [0].LocationOnScreen;
 			location = WorldToScreenspace (location); 
@@ -84,18 +90,12 @@ namespace chedSpaceInvaders.Shared
 			spaceShip.RunActions (moveSpaceShip);
 		}
 
-		private void OnTouchEnded (CCTouch touch, CCEvent touchEvent)
+		private CCSprite AddMeteroite()
 		{
-			tabCount++;
+			CCSprite meteroite = this.meteroiteProvider.GetOneShotMeteroite ();
+			AddChild (meteroite);
 
-			if (tabCount.Equals (1)) 
-			{
-				new CCDelayTime (1000f);
-			} 
-			else if (tabCount.Equals (2)) 
-			{
-				var tst = 2;
-			}
+			return meteroite;
 		}
 
 		protected override void AddedToScene ()
