@@ -39,7 +39,7 @@ namespace chedSpaceInvaders.Shared
 		{
 			var mId = GetOneShotMeteroiteId ();
 			var meteroite = new CCSprite (spriteSheet.Frames.Find (x => x.TextureFilename.Equals (mId)));
-			meteroite.Position = new CCPoint (CCRandom.Next(100, 650), 1200);
+			meteroite.Position = new CCPoint (CCRandom.Next(100, 650), 1500);
 			meteroite.Scale = 0.5f;
 
 			VisibleMeteorites.Add (meteroite);
@@ -69,9 +69,9 @@ namespace chedSpaceInvaders.Shared
 
 		private CCSprite AddMovementAndRotationTo(CCSprite meteroite)
 		{
-			var moveSpaceShip = new CCMoveTo (5.0f, new CCPoint (meteroite.Position.X, 0));
+			var moveMeteorite = new CCMoveTo (5.0f, new CCPoint (meteroite.Position.X, 0));
 
-			meteroite.RunActions (moveSpaceShip, meteroiteComplete);
+			meteroite.RunActions (moveMeteorite, meteroiteComplete);
 			meteroite.RepeatForever (rotateSpeedMeteroiteSlow);
 
 			return meteroite;

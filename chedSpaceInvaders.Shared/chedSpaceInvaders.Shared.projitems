@@ -15,5 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)SpaceInvadersGameLayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MeteoriteProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpaceInvadersGameOverLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StarsProvider.cs" />
   </ItemGroup>
 </Project>

@@ -16,20 +16,21 @@ namespace chedSpaceInvaders.Shared
 		private CCSprite bgPart1;
 		private CCSprite bgPart2;
 		private CCSprite spaceShip;
-
-		private List<CCSprite> hitStars;
+		private CCLabelTtf scoreLabel;
 
 		private MeteroiteProvider meteroiteProvider;
+		private StarsProvider starProvider;
 
 		public SpaceInvadersGameLayer ()
 		{
 			spriteSheet = new CCSpriteSheet ("animations/spaceSprites.plist");
 
 			meteroiteProvider = new MeteroiteProvider (spriteSheet);
-			hitStars = new List<CCSprite> ();
+			starProvider = new StarsProvider (spriteSheet);
 
 			AddScrollingBackground ();
 			AddSpaceShip ();
+			AddScoreLabel ();
 
 			AddSchedules ();
 		}
@@ -100,6 +101,7 @@ namespace chedSpaceInvaders.Shared
 		{
 			Schedule (t => AddOneShotMeteroite(), 3f);
 			Schedule (t => AddMeteoriteFire (), 15f);
+			Schedule (t => AddStar (), 8f);
 			Schedule (t => CheckCollision());
 		}
 
@@ -113,23 +115,39 @@ namespace chedSpaceInvaders.Shared
 
 		private void CheckCollision ()
 		{
-			this.meteroiteProvider.VisibleMeteorites.ForEach (m => 
-			{
+			CheckMeteoriteCollision ();
+			CheckStarsCollision ();
+		}
+
+		private void CheckMeteoriteCollision ()
+		{
+			this.meteroiteProvider.VisibleMeteorites.ForEach (m =>  {
 				bool hit = m.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent);
 
-				if (hit) 
-				{
+				if (hit) {
 					this.meteroiteProvider.HitMeteorites.Add (m);
 					CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/explosion");
 					Explode (m.Position);
 					m.RemoveFromParent ();
 				}
 			});
-
 			this.meteroiteProvider.HitMeteorites.ForEach (m => this.meteroiteProvider.VisibleMeteorites.Remove (m));
-
 			if (this.meteroiteProvider.HitMeteorites.Count.Equals (3))
 				EndGame ();
+		}
+
+		private void CheckStarsCollision ()
+		{
+			this.starProvider.VisibleStars.ForEach (s => {
+				bool hit = s.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent);
+
+				if (hit) {
+					this.starProvider.HitStars.Add (s);
+					CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/collected");
+					s.RemoveFromParent ();
+					scoreLabel.Text = string.Format("Collected Stars: {0}", this.starProvider.HitStars.Count);
+				}
+			});
 		}
 
 		private void Explode (CCPoint point)
@@ -144,9 +162,27 @@ namespace chedSpaceInvaders.Shared
 
 		private void EndGame ()
 		{
-			var spaceInvadersGameOverScene = SpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, hitStars.Count);
+			var spaceInvadersGameOverScene = SpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, this.starProvider.HitStars.Count);
 			var transitionToGameOver = new CCTransitionMoveInR (0.3f, spaceInvadersGameOverScene);
 			Director.ReplaceScene (transitionToGameOver);
+		}
+
+		private void AddScoreLabel ()
+		{
+			scoreLabel = new CCLabelTtf ("Collected Stars: 0", "arial", 22);
+
+			scoreLabel.PositionX = VisibleBoundsWorldspace.MinX + 20;
+			scoreLabel.PositionY = VisibleBoundsWorldspace.MaxY - 20;
+			scoreLabel.AnchorPoint = CCPoint.AnchorUpperLeft;
+			AddChild (scoreLabel);
+		}
+
+		private CCSprite AddStar ()
+		{
+			CCSprite star = this.starProvider.GetStar ();
+			AddChild (star);
+
+			return star;
 		}
 
 		protected override void AddedToScene ()

@@ -16,6 +16,7 @@ namespace chedSpaceInvaders.Shared
 			CCSize winSize = mainWindow.WindowSizeInPixels;
 
 			LoadSoundEffects ();
+
 			mainWindow.SetDesignResolutionSize(winSize.Width, winSize.Height, CCSceneResolutionPolicy.ExactFit);
 			mainWindow.RunWithScene (SpaceInvadersStartLayer.SpaceInvadersStartScene(mainWindow));
 		}
@@ -24,6 +25,8 @@ namespace chedSpaceInvaders.Shared
 		{
 			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("sounds/startup");
 			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("sounds/explosion");
+			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("sounds/collected");
+			CCSimpleAudioEngine.SharedEngine.PreloadEffect ("sounds/comet");
 		}
 
 		public override void ApplicationDidEnterBackground (CCApplication application)
