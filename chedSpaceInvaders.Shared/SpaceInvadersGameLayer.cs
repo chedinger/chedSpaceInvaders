@@ -119,22 +119,27 @@ namespace chedSpaceInvaders.Shared
 
 				if (hit) 
 				{
-					//ToDo Add explosion
 					this.meteroiteProvider.HitMeteorites.Add (m);
 					CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/explosion");
-					//Explode (m.Position);
+					Explode (m.Position);
 					m.RemoveFromParent ();
 				}
 			});
 
 			this.meteroiteProvider.HitMeteorites.ForEach (m => this.meteroiteProvider.VisibleMeteorites.Remove (m));
 
-//			int ballHitCount = ballsBatch.Children.Count (ball => ball.BoundingBoxTransformedToParent.IntersectsRect (monkey.BoundingBoxTransformedToParent));
-
-			if (this.meteroiteProvider.HitMeteorites.Count.Equals (3)) 
-			{
+			if (this.meteroiteProvider.HitMeteorites.Count.Equals (3))
 				EndGame ();
-			}
+		}
+
+		private void Explode (CCPoint point)
+		{
+			var explosion = new CCParticleExplosion (point);
+			explosion.TotalParticles = 100;
+			explosion.StartColor = new CCColor4F (CCColor3B.Red);
+			explosion.EndColor = new CCColor4F (CCColor3B.Yellow);
+			explosion.AutoRemoveOnFinish = true;
+			AddChild (explosion);
 		}
 
 		private void EndGame ()
