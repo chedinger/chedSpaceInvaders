@@ -1,5 +1,6 @@
 ﻿using System;
 using CocosSharp;
+using System.Collections.Generic;
 
 namespace chedSpaceInvaders.Shared
 {
@@ -23,7 +24,16 @@ namespace chedSpaceInvaders.Shared
 		public MeteroiteProvider (CCSpriteSheet spriteSheet)
 		{
 			this.spriteSheet = spriteSheet;
+			VisibleMeteorites = new List<CCSprite> ();
+			HitMeteorites = new List<CCSprite> ();
 		}
+
+		#region properties
+
+		public List<CCSprite> VisibleMeteorites { get; set; }
+		public List<CCSprite> HitMeteorites { get; set; }
+
+		#endregion
 
 		public CCSprite GetOneShotMeteroite()
 		{
@@ -31,6 +41,8 @@ namespace chedSpaceInvaders.Shared
 			var meteroite = new CCSprite (spriteSheet.Frames.Find (x => x.TextureFilename.Equals (mId)));
 			meteroite.Position = new CCPoint (CCRandom.Next(100, 650), 1200);
 			meteroite.Scale = 0.5f;
+
+			VisibleMeteorites.Add (meteroite);
 
 			return AddMovementAndRotationTo (meteroite);
 		}

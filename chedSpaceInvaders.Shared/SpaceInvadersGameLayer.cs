@@ -1,6 +1,7 @@
 ﻿using System;
 using CocosSharp;
 using System.Collections.Generic;
+using CocosDenshion;
 
 namespace chedSpaceInvaders.Shared
 {
@@ -16,6 +17,8 @@ namespace chedSpaceInvaders.Shared
 		private CCSprite bgPart2;
 		private CCSprite spaceShip;
 
+		private List<CCSprite> hitStars;
+
 		private MeteroiteProvider meteroiteProvider;
 
 		public SpaceInvadersGameLayer ()
@@ -23,6 +26,7 @@ namespace chedSpaceInvaders.Shared
 			spriteSheet = new CCSpriteSheet ("animations/spaceSprites.plist");
 
 			meteroiteProvider = new MeteroiteProvider (spriteSheet);
+			hitStars = new List<CCSprite> ();
 
 			AddScrollingBackground ();
 			AddSpaceShip ();
@@ -94,8 +98,9 @@ namespace chedSpaceInvaders.Shared
 
 		private void AddSchedules ()
 		{
-			Schedule(t => AddOneShotMeteroite(), 3f);
+			Schedule (t => AddOneShotMeteroite(), 3f);
 			Schedule (t => AddMeteoriteFire (), 15f);
+			Schedule (t => CheckCollision());
 		}
 
 		private CCSprite AddMeteoriteFire ()
@@ -104,6 +109,39 @@ namespace chedSpaceInvaders.Shared
 			AddChild (meteoriteFire);
 
 			return meteoriteFire;
+		}
+
+		private void CheckCollision ()
+		{
+			this.meteroiteProvider.VisibleMeteorites.ForEach (m => 
+			{
+				bool hit = m.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent);
+
+				if (hit) 
+				{
+					//ToDo Add explosion
+					this.meteroiteProvider.HitMeteorites.Add (m);
+					CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/explosion");
+					//Explode (m.Position);
+					m.RemoveFromParent ();
+				}
+			});
+
+			this.meteroiteProvider.HitMeteorites.ForEach (m => this.meteroiteProvider.VisibleMeteorites.Remove (m));
+
+//			int ballHitCount = ballsBatch.Children.Count (ball => ball.BoundingBoxTransformedToParent.IntersectsRect (monkey.BoundingBoxTransformedToParent));
+
+			if (this.meteroiteProvider.HitMeteorites.Count.Equals (3)) 
+			{
+				EndGame ();
+			}
+		}
+
+		private void EndGame ()
+		{
+			var spaceInvadersGameOverScene = SpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, hitStars.Count);
+			var transitionToGameOver = new CCTransitionMoveInR (0.3f, spaceInvadersGameOverScene);
+			Director.ReplaceScene (transitionToGameOver);
 		}
 
 		protected override void AddedToScene ()
