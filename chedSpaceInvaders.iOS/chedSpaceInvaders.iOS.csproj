@@ -142,5 +142,6 @@
     <BundleResource Include="Content\hd\animations\spaceSprites.png" />
     <BundleResource Include="Content\hd\animations\spaceSprites.plist" />
     <BundleResource Include="Content\hd\scrollingBG.png" />
+    <BundleResource Include="Content\hd\ufo.png" />
   </ItemGroup>
 </Project>
