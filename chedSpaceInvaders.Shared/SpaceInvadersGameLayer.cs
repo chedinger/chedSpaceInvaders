@@ -31,9 +31,10 @@ namespace chedSpaceInvaders.Shared
 			lifes = new List<CCSprite> ();
 
 			AddScrollingBackground ();
-			AddSpaceShip ();
+			//AddSpaceShip ();
 			AddScoreStarAndLabel ();
 			AddLifes ();
+			AddGalaxy ();
 
 			StartSchedules ();
 		}
@@ -67,7 +68,13 @@ namespace chedSpaceInvaders.Shared
 		private void AddSpaceShip ()
 		{
 			spaceShip = new CCSprite (spriteSheet.Frames.Find ((x) => x.TextureFilename.StartsWith ("spaceship")));
+			spaceShip.Position = new CCPoint (350, 600);
+			spaceShip.Scale = 0.25f;
 			AddChild (spaceShip);
+
+			spaceShip.RunAction (
+				new CCScaleTo (2f, 1f)
+			);
 
 			var touchListener = new CCEventListenerTouchAllAtOnce ();
 			touchListener.OnTouchesEnded = OnTouchesEnded;
@@ -194,6 +201,21 @@ namespace chedSpaceInvaders.Shared
 			lifes.ForEach (l => AddChild (l));
 		}
 
+		private void AddGalaxy ()
+		{
+			var galaxy = new CCParticleGalaxy (new CCPoint(350, 600));
+			galaxy.Duration = 3f;
+			galaxy.StartRadius = 8f;
+			galaxy.EndRadius = 0f;
+			galaxy.AutoRemoveOnFinish = true;
+			galaxy.RunActions (
+				new CCDelayTime (2f),
+				new CCCallFuncN (node => AddSpaceShip()),
+				new CCCallFuncN (node => spaceShip.RunAction (new CCMoveTo(2f, new CCPoint (350, 100)))));
+
+			AddChild (galaxy);
+		}
+
 		private CCSprite CreateLifeSpaceShip (int addToXPosition = 0)
 		{
 			return new CCSprite (spriteSheet.Frames.Find ((x) => x.TextureFilename.StartsWith ("spaceship"))) 
@@ -215,7 +237,7 @@ namespace chedSpaceInvaders.Shared
 		{
 			base.AddedToScene ();
 
-			spaceShip.Position = new CCPoint(VisibleBoundsWorldspace.MidX, MIN_SPACE_SHIP_Y_POSITION);
+			//spaceShip.Position = new CCPoint(VisibleBoundsWorldspace.MidX, MIN_SPACE_SHIP_Y_POSITION);
 
 			Scene.SceneResolutionPolicy = CCSceneResolutionPolicy.NoBorder;
 		}
