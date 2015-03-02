@@ -17,6 +17,7 @@ namespace chedSpaceInvaders.Shared
 		private CCSprite bgPart2;
 		private CCSprite spaceShip;
 		private CCLabelTtf scoreLabel;
+		private List<CCSprite> lifes;
 
 		private MeteroiteProvider meteroiteProvider;
 		private StarsProvider starProvider;
@@ -27,12 +28,14 @@ namespace chedSpaceInvaders.Shared
 
 			meteroiteProvider = new MeteroiteProvider (spriteSheet);
 			starProvider = new StarsProvider (spriteSheet);
+			lifes = new List<CCSprite> ();
 
 			AddScrollingBackground ();
 			AddSpaceShip ();
-			AddScoreLabel ();
+			AddScoreStarAndLabel ();
+			AddLifes ();
 
-			AddSchedules ();
+			StartSchedules ();
 		}
 
 		private void AddScrollingBackground ()
@@ -97,7 +100,7 @@ namespace chedSpaceInvaders.Shared
 			return meteroite;
 		}
 
-		private void AddSchedules ()
+		private void StartSchedules ()
 		{
 			Schedule (t => AddOneShotMeteroite(), 3f);
 			Schedule (t => AddMeteoriteFire (), 15f);
@@ -129,9 +132,13 @@ namespace chedSpaceInvaders.Shared
 					CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/explosion");
 					Explode (m.Position);
 					m.RemoveFromParent ();
+					lifes[lifes.Count - 1].RemoveFromParent ();
+					lifes.RemoveAt (lifes.Count - 1);
 				}
 			});
+
 			this.meteroiteProvider.HitMeteorites.ForEach (m => this.meteroiteProvider.VisibleMeteorites.Remove (m));
+
 			if (this.meteroiteProvider.HitMeteorites.Count.Equals (3))
 				EndGame ();
 		}
@@ -145,9 +152,11 @@ namespace chedSpaceInvaders.Shared
 					this.starProvider.HitStars.Add (s);
 					CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/collected");
 					s.RemoveFromParent ();
-					scoreLabel.Text = string.Format("Collected Stars: {0}", this.starProvider.HitStars.Count);
+					scoreLabel.Text = string.Format("{0}", this.starProvider.HitStars.Count);
 				}
 			});
+
+			this.starProvider.HitStars.ForEach (hitStar => this.starProvider.VisibleStars.Remove (hitStar));
 		}
 
 		private void Explode (CCPoint point)
@@ -167,14 +176,31 @@ namespace chedSpaceInvaders.Shared
 			Director.ReplaceScene (transitionToGameOver);
 		}
 
-		private void AddScoreLabel ()
+		private void AddScoreStarAndLabel ()
 		{
-			scoreLabel = new CCLabelTtf ("Collected Stars: 0", "arial", 22);
-
-			scoreLabel.PositionX = VisibleBoundsWorldspace.MinX + 20;
-			scoreLabel.PositionY = VisibleBoundsWorldspace.MaxY - 20;
+			AddChild (this.starProvider.GetScoreStar ());
+			scoreLabel = new CCLabelTtf ("0", "arial", 22);
+			scoreLabel.Position = new CCPoint (70, 1300);
 			scoreLabel.AnchorPoint = CCPoint.AnchorUpperLeft;
 			AddChild (scoreLabel);
+		}
+
+		private void AddLifes ()
+		{
+			lifes.Add (CreateLifeSpaceShip ());
+			lifes.Add (CreateLifeSpaceShip (addToXPosition: 50));
+			lifes.Add (CreateLifeSpaceShip (addToXPosition: 100));
+
+			lifes.ForEach (l => AddChild (l));
+		}
+
+		private CCSprite CreateLifeSpaceShip (int addToXPosition = 0)
+		{
+			return new CCSprite (spriteSheet.Frames.Find ((x) => x.TextureFilename.StartsWith ("spaceship"))) 
+			{
+				Position = new CCPoint (40 + addToXPosition, 1210),
+				Scale = 0.5f
+			};
 		}
 
 		private CCSprite AddStar ()

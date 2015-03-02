@@ -27,13 +27,18 @@ namespace chedSpaceInvaders.Shared
 
 		public CCSprite GetStar()
 		{
-			var star = new CCSprite (spriteSheet.Frames.Find (x => x.TextureFilename.Equals ("star.png")));
+			CCSprite star = SelectStarFromSprite();
 			star.Position = new CCPoint (CCRandom.Next(100, 650), 1500);
 			star.Scale = 0.125f;
 
 			VisibleStars.Add (star);
 
 			return AddMovementAndRotationTo (star);
+		}
+
+		private CCSprite SelectStarFromSprite ()
+		{
+			return new CCSprite (spriteSheet.Frames.Find (x => x.TextureFilename.Equals ("star.png")));
 		}
 
 		private CCSprite AddMovementAndRotationTo(CCSprite star)
@@ -44,6 +49,15 @@ namespace chedSpaceInvaders.Shared
 			star.RepeatForever (rotateStar);
 
 			return star;
+		}
+
+		public CCSprite GetScoreStar()
+		{
+			CCSprite scoreStar = SelectStarFromSprite ();
+			scoreStar.Position = new CCPoint (40, 1285);
+			scoreStar.Scale = 0.0625f;
+
+			return scoreStar;
 		}
 	}
 }
