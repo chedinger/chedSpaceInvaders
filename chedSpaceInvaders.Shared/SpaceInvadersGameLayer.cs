@@ -31,7 +31,6 @@ namespace chedSpaceInvaders.Shared
 			lifes = new List<CCSprite> ();
 
 			AddScrollingBackground ();
-			//AddSpaceShip ();
 			AddScoreStarAndLabel ();
 			AddLifes ();
 			AddGalaxy ();
