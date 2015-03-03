@@ -1,6 +1,7 @@
 ﻿using System;
 using CocosSharp;
 using System.Collections.Generic;
+using CocosDenshion;
 
 namespace chedSpaceInvaders.Shared
 {
@@ -93,6 +94,8 @@ namespace chedSpaceInvaders.Shared
 				: new CCPoint (-100, -100));
 
 			meteoriteFire.RunAction (meteoriteFireMove);
+
+			CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/comet");
 
 			if ( ! fromLeftToRight)
 				meteoriteFire.Rotation = 90;

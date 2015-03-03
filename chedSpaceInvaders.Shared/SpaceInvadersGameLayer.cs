@@ -121,6 +121,8 @@ namespace chedSpaceInvaders.Shared
 				new CCMoveTo (2f, new CCPoint (newShot.Position.X, 1500)),
 				new CCCallFuncN (node => node.RemoveFromParent()));
 
+			CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/shot");
+
 			shots.Add (newShot);
 			AddChild (newShot);
 		}
