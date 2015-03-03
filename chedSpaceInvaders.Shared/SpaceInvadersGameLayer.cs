@@ -11,6 +11,9 @@ namespace chedSpaceInvaders.Shared
 		private const float SPACE_SHIP_SPEED = 400.0f;
 		private const int MIN_SPACE_SHIP_Y_POSITION = 100;
 		private const string METEROITE_SPRITE_ID = "meteorite";
+		private const float ROUND_DURATION = 60f;
+
+		private float ellapsedTime;
 
 		private CCSpriteSheet spriteSheet;
 		private CCSprite bgPart1;
@@ -141,6 +144,7 @@ namespace chedSpaceInvaders.Shared
 			Schedule (t => AddMeteoriteFire (), 15f);
 			Schedule (t => AddStar (), 8f);
 			Schedule (t => CheckCollision());
+			Schedule (t => CheckEllapsedTime (t), 1f);
 		}
 
 		private CCSprite AddMeteoriteFire ()
@@ -288,11 +292,17 @@ namespace chedSpaceInvaders.Shared
 			return star;
 		}
 
+		private void CheckEllapsedTime (float t)
+		{
+			ellapsedTime += t;
+
+			if (ellapsedTime > ROUND_DURATION)
+				EndGame ();
+		}
+
 		protected override void AddedToScene ()
 		{
 			base.AddedToScene ();
-
-			//spaceShip.Position = new CCPoint(VisibleBoundsWorldspace.MidX, MIN_SPACE_SHIP_Y_POSITION);
 
 			Scene.SceneResolutionPolicy = CCSceneResolutionPolicy.NoBorder;
 		}
