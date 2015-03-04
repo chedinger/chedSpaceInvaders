@@ -112,6 +112,21 @@
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship29x29.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship58x58.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship87x87.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship80x80.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship120x120.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship57x57.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship114x114.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship180x180.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship40x40.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship50x50.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship100x100.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship72x72.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship144x144.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship76x76.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\spaceship152x152.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
