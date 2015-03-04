@@ -7,7 +7,7 @@
             <key>meteorite.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{513,1116},{250,188}}</string>
+                <string>{{513,1119},{250,188}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,24 +20,24 @@
             <key>meteorite1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{757,874},{246,153}}</string>
+                <string>{{703,1119},{247,153}}</string>
                 <key>offset</key>
-                <string>{0.5,-2}</string>
+                <string>{0,-2}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{12,60},{246,153}}</string>
+                <string>{{11,60},{247,153}}</string>
                 <key>sourceSize</key>
                 <string>{269,269}</string>
             </dict>
             <key>meteorite2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{513,874},{240,242}}</string>
+                <string>{{513,875},{240,242}}</string>
                 <key>offset</key>
                 <string>{4,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{12,9},{240,242}}</string>
                 <key>sourceSize</key>
@@ -46,24 +46,24 @@
             <key>meteorite3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{703,1122},{125,133}}</string>
+                <string>{{623,1371},{126,134}}</string>
                 <key>offset</key>
-                <string>{-0.5,0.5}</string>
+                <string>{-1,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{15,11},{125,133}}</string>
+                <string>{{14,10},{126,134}}</string>
                 <key>sourceSize</key>
                 <string>{156,156}</string>
             </dict>
             <key>meteorite4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{838,1122},{103,75}}</string>
+                <string>{{751,1368},{103,75}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{103,75}}</string>
                 <key>sourceSize</key>
@@ -72,20 +72,33 @@
             <key>meteoriteFire.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1,1},{871,871}}</string>
+                <string>{{1,1},{872,872}}</string>
                 <key>offset</key>
-                <string>{-11.5,11.5}</string>
+                <string>{-11,11}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{871,871}}</string>
+                <string>{{0,0},{872,872}}</string>
                 <key>sourceSize</key>
                 <string>{894,894}</string>
+            </dict>
+            <key>opponent.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,1387},{620,150}}</string>
+                <key>offset</key>
+                <string>{1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{3,1},{620,150}}</string>
+                <key>sourceSize</key>
+                <string>{624,158}</string>
             </dict>
             <key>shot.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{797,1249},{106,106}}</string>
+                <string>{{755,1005},{106,106}}</string>
                 <key>offset</key>
                 <string>{1,-2}</string>
                 <key>rotated</key>
@@ -98,7 +111,7 @@
             <key>spaceship.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{703,1249},{92,128}}</string>
+                <string>{{755,875},{92,128}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
@@ -111,13 +124,13 @@
             <key>star.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1,874},{510,509}}</string>
+                <string>{{1,875},{510,510}}</string>
                 <key>offset</key>
-                <string>{1,-1.5}</string>
+                <string>{1,-1}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,3},{510,509}}</string>
+                <string>{{2,2},{510,510}}</string>
                 <key>sourceSize</key>
                 <string>{512,512}</string>
             </dict>
@@ -129,9 +142,9 @@
             <key>realTextureFileName</key>
             <string>spaceSprites.png</string>
             <key>size</key>
-            <string>{914,1384}</string>
+            <string>{874,1538}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:dcf66ac6b352e318be8de00849181951:8bc66c4bb638249b8b73046c64dc9ed4:c4de8e20e90c6462ba2f06b238c7b07e$</string>
+            <string>$TexturePacker:SmartUpdate:a5c8da23f5e3542d1d692baa85bab73d:16fd0f671b89e752681859c8bd3e1898:c4de8e20e90c6462ba2f06b238c7b07e$</string>
             <key>textureFileName</key>
             <string>spaceSprites.png</string>
         </dict>

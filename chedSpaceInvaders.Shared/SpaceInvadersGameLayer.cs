@@ -326,7 +326,7 @@ namespace chedSpaceInvaders.Shared
 
 		private void AddOpponent ()
 		{
-			opponent = new CCSprite ("opponent") 
+			opponent = new CCSprite (spriteSheet.Frames.Find (f => f.TextureFilename.StartsWith ("opponent")))
 			{
 				Scale = 0.6f,
 				Position = new CCPoint (350, 1400)

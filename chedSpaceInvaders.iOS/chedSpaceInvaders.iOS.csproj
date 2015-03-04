@@ -146,6 +146,5 @@
     <BundleResource Include="Content\sounds\collected.mp3" />
     <BundleResource Include="Content\sounds\comet.mp3" />
     <BundleResource Include="Content\sounds\shot.mp3" />
-    <BundleResource Include="Content\hd\opponent.png" />
   </ItemGroup>
 </Project>
