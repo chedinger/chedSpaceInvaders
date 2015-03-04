@@ -10,19 +10,23 @@ namespace chedSpaceInvaders.Shared
 		private const string SCROLLING_BG = "scrollingBG";
 		private const float SPACE_SHIP_SPEED = 400.0f;
 		private const int MIN_SPACE_SHIP_Y_POSITION = 100;
+		private const int OPPONENT_DAMAGE_MAX = 3;
 		private const string METEROITE_SPRITE_ID = "meteorite";
-		private const float ROUND_DURATION = 60f;
+		private const float ROUND_DURATION = 5f;
 
 		private float ellapsedTime;
+		private int opponentDamage;
 
 		private CCSpriteSheet spriteSheet;
 		private CCSprite bgPart1;
 		private CCSprite bgPart2;
 		private CCSprite spaceShip;
+		private CCSprite opponent;
 		private CCLabelTtf scoreLabel;
 
 		private List<CCSprite> lifes;
 		private List<CCSprite> shots;
+		private List<CCSprite> opponentShots;
 
 		private MeteroiteProvider meteoriteProvider;
 		private StarsProvider starProvider;
@@ -35,6 +39,8 @@ namespace chedSpaceInvaders.Shared
 			starProvider = new StarsProvider (spriteSheet);
 			lifes = new List<CCSprite> ();
 			shots = new List<CCSprite> ();
+			opponentShots = new List<CCSprite> ();
+			opponentDamage = 0;
 
 			AddScrollingBackground ();
 			AddScoreStarAndLabel ();
@@ -55,10 +61,10 @@ namespace chedSpaceInvaders.Shared
 			bgPart2.AnchorPoint = new CCPoint (0, 0);
 			bgPart2.Position = new CCPoint (0, bgPart1.BoundingBox.Size.Height);
 			AddChild (bgPart2);
-			Schedule (t => Scroll (new CCDelayTime (1000f)));
+			Schedule (t => Scroll ());
 		}
 
-		private void Scroll(CCDelayTime dt) 
+		private void Scroll() 
 		{
 			bgPart1.Position = new CCPoint (bgPart1.Position.X, bgPart1.Position.Y - 1);
 			bgPart2.Position = new CCPoint (bgPart2.Position.X, bgPart2.Position.Y - 1);
@@ -165,15 +171,8 @@ namespace chedSpaceInvaders.Shared
 		private void CheckMeteoriteCollision ()
 		{
 			this.meteoriteProvider.VisibleMeteorites.ForEach (m =>  {
-				bool hit = m.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent);
-
-				if (hit) {
-					this.meteoriteProvider.HitMeteorites.Add (m);
-					CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/explosion");
-					Explode (m.Position);
-					m.RemoveFromParent ();
-					lifes[lifes.Count - 1].RemoveFromParent ();
-					lifes.RemoveAt (lifes.Count - 1);
+				if (m.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent)) {
+					RemoveSpriteWithSound (m);
 				}
 			});
 
@@ -181,6 +180,19 @@ namespace chedSpaceInvaders.Shared
 
 			if (this.meteoriteProvider.HitMeteorites.Count.Equals (3))
 				EndGame ();
+		}
+
+		private void RemoveSpriteWithSound (CCSprite sprite, bool reduceLifes = true)
+		{
+			this.meteoriteProvider.HitMeteorites.Add (sprite);
+			CCSimpleAudioEngine.SharedEngine.PlayEffect ("sounds/explosion");
+			Explode (sprite.Position);
+			sprite.RemoveFromParent ();
+
+			if (reduceLifes) {
+				lifes [lifes.Count - 1].RemoveFromParent ();
+				lifes.RemoveAt (lifes.Count - 1);
+			}
 		}
 
 		private void CheckMeteoriteShotCollision ()
@@ -235,10 +247,10 @@ namespace chedSpaceInvaders.Shared
 			AddChild (explosion);
 		}
 
-		private void EndGame ()
+		private void EndGame (int bonus = 0)
 		{
-			var spaceInvadersGameOverScene = SpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, this.starProvider.HitStars.Count);
-			var transitionToGameOver = new CCTransitionMoveInR (0.3f, spaceInvadersGameOverScene);
+			var spaceInvadersGameOverScene = SpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, this.starProvider.HitStars.Count, bonus);
+			var transitionToGameOver = new CCTransitionJumpZoom (0.3f, spaceInvadersGameOverScene);
 			Director.ReplaceScene (transitionToGameOver);
 		}
 
@@ -297,7 +309,121 @@ namespace chedSpaceInvaders.Shared
 			ellapsedTime += t;
 
 			if (ellapsedTime > ROUND_DURATION)
+				SwitchToSpaceInvadersLevelEndOpponent ();
+		}
+
+		private void SwitchToSpaceInvadersLevelEndOpponent()
+		{
+			UnscheduleAll ();
+
+			this.meteoriteProvider.VisibleMeteorites.ForEach (m => m.RemoveFromParent ());
+			this.starProvider.VisibleStars.ForEach (s => s.RemoveFromParent ());
+
+			spaceShip.RunAction (new CCMoveTo (2f, new CCPoint (350, 100)));
+
+			AddOpponent ();
+		}
+
+		private void AddOpponent ()
+		{
+			opponent = new CCSprite ("opponent") 
+			{
+				Scale = 0.6f,
+				Position = new CCPoint (350, 1400)
+			};
+
+			AddChild (opponent);
+
+			opponent.RunAction (new CCMoveTo(2f, new CCPoint (350, 1050)));
+
+			opponent.RepeatForever (
+				new CCMoveTo (2f, new CCPoint (580, 1050)),
+				new CCMoveTo (2f, new CCPoint (170, 1050)));
+
+			Schedule (t => AddOpponentShot(), 3f);
+			Schedule (t => CheckOpponentShotCollision ());
+			Schedule (t => CheckSpaceShipShotCollision ());
+			Schedule (t => CheckOpponentDamage());
+		}
+
+		private void AddOpponentShot ()
+		{
+			var opponentShot = new CCSprite (spriteSheet.Frames.Find (f => f.TextureFilename.Equals ("meteorite4.png")));
+
+			opponentShot.Position = new CCPoint (opponent.Position.X, 1050);
+			opponentShot.RunActions (
+				new CCMoveTo(3f, new CCPoint (opponentShot.Position.X, -100)),
+				new CCCallFuncN(node => node.RemoveFromParent()));
+
+			opponentShots.Add (opponentShot);
+
+			AddChild (opponentShot);
+		}
+
+		private void CheckOpponentShotCollision ()
+		{
+			var shotsToRemove = new List<CCSprite> ();
+
+			opponentShots.ForEach (os => {
+				if (os.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent)) {
+					RemoveSpriteWithSound (os);
+					shotsToRemove.Add (os);
+				}
+			});
+
+			shotsToRemove.ForEach (sTr => opponentShots.Remove (sTr));
+
+			if (lifes.Count.Equals (0))
 				EndGame ();
+		}
+
+		private void CheckSpaceShipShotCollision ()
+		{
+			var shotsToRemove = new List<CCSprite> ();
+			var opponentShotsToRemove = new List<CCSprite> ();
+
+			shots.ForEach (s => {
+
+				opponentShots.ForEach (os => {
+					if (os.BoundingBoxTransformedToParent.IntersectsRect (s.BoundingBoxTransformedToParent)) {
+						s.RemoveFromParent ();
+						shotsToRemove.Add (s);
+						RemoveSpriteWithSound (os, reduceLifes: false);
+						opponentShotsToRemove.Add (os);
+					}
+				});
+
+				if (s.BoundingBoxTransformedToParent.IntersectsRect (opponent.BoundingBoxTransformedToParent)) {
+					s.RemoveFromParent();
+					opponentDamage++;
+					shotsToRemove.Add (s);
+
+					opponent.RunActions (
+						new CCCallFuncN (node => node.Opacity = 100),
+						new CCDelayTime (0.25f),
+						new CCCallFuncN (node => node.Opacity = 255));
+				}
+			});
+
+			shotsToRemove.ForEach (sTr => shots.Remove (sTr));
+			opponentShotsToRemove.ForEach (ostr => opponentShots.Remove (ostr));
+		}
+
+		private void CheckOpponentDamage ()
+		{
+			if (opponentDamage.Equals (OPPONENT_DAMAGE_MAX)) 
+			{
+				UnscheduleAll ();
+
+				this.RunAction (
+					new CCSequence (
+						new CCCallFunc (() => Explode (opponent.Position, 0.75f)),
+						new CCDelayTime (2f),
+						new CCCallFunc (() => EndGame (bonus: 100)))
+				);
+
+				opponent.RemoveFromParent ();
+			}
 		}
 
 		protected override void AddedToScene ()

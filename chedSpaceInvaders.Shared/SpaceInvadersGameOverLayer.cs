@@ -6,6 +6,7 @@ namespace chedSpaceInvaders.Shared
 	public class SpaceInvadersGameOverLayer : CCLayerColor
 	{
 		private static int score;
+		private static int bonus;
 		private CCSprite space;
 		private string scoreMessage;
 
@@ -18,7 +19,10 @@ namespace chedSpaceInvaders.Shared
 
 			AddEventListener (touchListener, this);
 
-			scoreMessage = String.Format ("Game Over. You collected {0} stars!", score);
+			if (bonus.Equals (0))
+				scoreMessage = String.Format ("Game Over. You collected {0} stars!", score);
+			else
+				scoreMessage = String.Format ("Congratulations!\nYou collected {0} stars and gained a bonus of {1}!", score, bonus);
 
 			Color = new CCColor3B (CCColor4B.Black);
 			space = new CCSprite("startupBG");
@@ -59,9 +63,10 @@ namespace chedSpaceInvaders.Shared
 			AddChild (playAgainLabel);
 		}
 
-		public static CCScene SpaceInvadersGameOverScene (CCWindow mainWindow, int scoreFromGame)
+		public static CCScene SpaceInvadersGameOverScene (CCWindow mainWindow, int scoreFromGame, int bonusFromGame)
 		{
 			score = scoreFromGame;
+			bonus = bonusFromGame;
 			return SceneProvider.GetScene<SpaceInvadersGameOverLayer> (mainWindow);
 		}
 	}
