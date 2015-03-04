@@ -136,7 +136,7 @@ namespace chedSpaceInvaders.Shared
 			AddChild (newShot);
 		}
 
-		private CCSprite AddOneShotMeteroite()
+		private CCSprite AddMeteorite()
 		{
 			CCSprite meteroite = this.meteoriteProvider.GetOneShotMeteroite ();
 			AddChild (meteroite);
@@ -146,9 +146,9 @@ namespace chedSpaceInvaders.Shared
 
 		private void StartSchedules ()
 		{
-			Schedule (t => AddOneShotMeteroite(), 3f);
+			Schedule (t => AddMeteorite(), 3f);
 			Schedule (t => AddMeteoriteFire (), 15f);
-			Schedule (t => AddStar (), 8f);
+			Schedule (t => AddStar (), 2f);
 			Schedule (t => CheckCollision());
 			Schedule (t => CheckEllapsedTime (t), 1f);
 		}
