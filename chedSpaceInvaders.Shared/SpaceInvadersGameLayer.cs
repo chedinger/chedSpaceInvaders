@@ -12,7 +12,7 @@ namespace chedSpaceInvaders.Shared
 		private const int MIN_SPACE_SHIP_Y_POSITION = 100;
 		private const int OPPONENT_DAMAGE_MAX = 3;
 		private const string METEROITE_SPRITE_ID = "meteorite";
-		private const float ROUND_DURATION = 5f;
+		private const float ROUND_DURATION = 30f;
 
 		private float ellapsedTime;
 		private int opponentDamage;
@@ -249,6 +249,8 @@ namespace chedSpaceInvaders.Shared
 
 		private void EndGame (int bonus = 0)
 		{
+			UnscheduleAll ();
+
 			var spaceInvadersGameOverScene = SpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, this.starProvider.HitStars.Count, bonus);
 			var transitionToGameOver = new CCTransitionJumpZoom (0.3f, spaceInvadersGameOverScene);
 			Director.ReplaceScene (transitionToGameOver);
@@ -365,7 +367,8 @@ namespace chedSpaceInvaders.Shared
 			var shotsToRemove = new List<CCSprite> ();
 
 			opponentShots.ForEach (os => {
-				if (os.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent)) {
+				if (os.BoundingBoxTransformedToParent.IntersectsRect (spaceShip.BoundingBoxTransformedToParent)) 
+				{
 					RemoveSpriteWithSound (os);
 					shotsToRemove.Add (os);
 				}
@@ -414,6 +417,18 @@ namespace chedSpaceInvaders.Shared
 			if (opponentDamage.Equals (OPPONENT_DAMAGE_MAX)) 
 			{
 				UnscheduleAll ();
+
+//				var animationFrames = new List<CCSpriteFrame> ();
+//				for (int i=1;i<14;i++)
+//				{
+//					animationFrames.Add (spriteSheet.Frames.Find ((x) => 
+//						x.TextureFilename.StartsWith (string.Format("explosion{0}", i))));
+//				}
+//
+//				var explodeAnimation = new CCAnimation (animationFrames, 0.1f);
+//				var explosion = new CCAnimate (explodeAnimation);
+//			
+//				opponent.RunAction (explosion);
 
 				this.RunAction (
 					new CCSequence (
