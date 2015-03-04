@@ -99,7 +99,7 @@ namespace chedSpaceInvaders.Shared
 			spaceShip.StopAllActions ();
 
 			if (tabCount.Equals (1)) {
-				this.RunActions (new CCDelayTime (0.2f), new CCCallFunc (() => tabCount = 0));
+				this.RunActions (new CCDelayTime (0.3f), new CCCallFunc (() => tabCount = 0));
 			} else if (tabCount.Equals (2)) {
 				FireShot ();
 			}
