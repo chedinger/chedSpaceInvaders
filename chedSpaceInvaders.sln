@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chedSpaceInvaders.iOS", "ch
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "chedSpaceInvaders.Shared", "chedSpaceInvaders.Shared\chedSpaceInvaders.Shared.shproj", "{FE16276E-2250-4F3C-869E-9E1B5D33B3AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chedSpaceInvaders.Android", "chedSpaceInvaders.Android\chedSpaceInvaders.Android.csproj", "{EC411E2A-1E22-437D-9F8D-043B644B51DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -27,5 +29,17 @@ Global
 		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Release|iPhone.Build.0 = Release|iPhone
 		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{409C5DC0-EDDB-4B28-AE90-AA161FCB88E7}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Release|iPhone.Build.0 = Release|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{EC411E2A-1E22-437D-9F8D-043B644B51DB}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
