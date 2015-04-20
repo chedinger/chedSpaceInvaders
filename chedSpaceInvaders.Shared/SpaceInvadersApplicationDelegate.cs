@@ -18,7 +18,7 @@ namespace chedSpaceInvaders.Shared
 			LoadSoundEffects ();
 
 			mainWindow.SetDesignResolutionSize(winSize.Width, winSize.Height, CCSceneResolutionPolicy.ExactFit);
-			mainWindow.RunWithScene (SpaceInvadersStartLayer.SpaceInvadersStartScene(mainWindow));
+			mainWindow.RunWithScene (ChedSpaceInvadersStartLayer.SpaceInvadersStartScene(mainWindow));
 		}
 
 		private void LoadSoundEffects ()

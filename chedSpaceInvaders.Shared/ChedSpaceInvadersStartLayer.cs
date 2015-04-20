@@ -4,12 +4,12 @@ using CocosDenshion;
 
 namespace chedSpaceInvaders.Shared
 {
-	public class SpaceInvadersStartLayer : CCLayerColor
+	public class ChedSpaceInvadersStartLayer : CCLayerColor
 	{
 		private CCSprite space;
 		private CCSprite ufo;
 
-		public SpaceInvadersStartLayer() 
+		public ChedSpaceInvadersStartLayer() 
 			: base()
 		{
 			InitializeTouchListener ();
@@ -31,7 +31,8 @@ namespace chedSpaceInvaders.Shared
 			touchListener.OnTouchesEnded = (touches, ccevent) => 
 			{ 
 				CCSimpleAudioEngine.SharedEngine.StopAllEffects ();
-				Window.DefaultDirector.ReplaceScene (SpaceInvadersGameLayer.SpaceInvadersGameScene (Window));
+				CCWindow tst;
+				Window.DefaultDirector.ReplaceScene (ChedSpaceInvadersGameLayer.SpaceInvadersGameScene (Window));
 			}; 
 
 			AddEventListener (touchListener, this);
@@ -73,7 +74,7 @@ namespace chedSpaceInvaders.Shared
 
 		public static CCScene SpaceInvadersStartScene (CCWindow mainWindow)
 		{
-			return SceneProvider.GetScene<SpaceInvadersStartLayer> (mainWindow);
+			return SceneProvider.GetScene<ChedSpaceInvadersStartLayer> (mainWindow);
 		}
 	}
 }

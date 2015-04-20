@@ -3,19 +3,19 @@ using CocosSharp;
 
 namespace chedSpaceInvaders.Shared
 {
-	public class SpaceInvadersGameOverLayer : CCLayerColor
+	public class ChedSpaceInvadersGameOverLayer : CCLayerColor
 	{
 		private static int score;
 		private static int bonus;
 		private CCSprite space;
 		private string scoreMessage;
 
-		public SpaceInvadersGameOverLayer ()
+		public ChedSpaceInvadersGameOverLayer ()
 		{
 			var touchListener = new CCEventListenerTouchAllAtOnce ();
 
 			touchListener.OnTouchesEnded = 
-				(touches, ccevent) => Window.DefaultDirector.ReplaceScene (SpaceInvadersGameLayer.SpaceInvadersGameScene (Window));
+				(touches, ccevent) => Window.DefaultDirector.ReplaceScene (ChedSpaceInvadersGameLayer.SpaceInvadersGameScene (Window));
 
 			AddEventListener (touchListener, this);
 
@@ -67,7 +67,7 @@ namespace chedSpaceInvaders.Shared
 		{
 			score = scoreFromGame;
 			bonus = bonusFromGame;
-			return SceneProvider.GetScene<SpaceInvadersGameOverLayer> (mainWindow);
+			return SceneProvider.GetScene<ChedSpaceInvadersGameOverLayer> (mainWindow);
 		}
 	}
 }

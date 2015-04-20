@@ -5,7 +5,7 @@ using CocosDenshion;
 
 namespace chedSpaceInvaders.Shared
 {
-	public class SpaceInvadersGameLayer : CCLayerColor
+	public class ChedSpaceInvadersGameLayer : CCLayerColor
 	{
 		private const string SCROLLING_BG = "scrollingBG";
 		private const float SPACE_SHIP_SPEED = 400.0f;
@@ -31,7 +31,7 @@ namespace chedSpaceInvaders.Shared
 		private MeteroiteProvider meteoriteProvider;
 		private StarsProvider starProvider;
 
-		public SpaceInvadersGameLayer ()
+		public ChedSpaceInvadersGameLayer ()
 		{
 			spriteSheet = new CCSpriteSheet ("animations/spaceSprites.plist");
 
@@ -251,7 +251,7 @@ namespace chedSpaceInvaders.Shared
 		{
 			UnscheduleAll ();
 
-			var spaceInvadersGameOverScene = SpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, this.starProvider.HitStars.Count, bonus);
+			var spaceInvadersGameOverScene = ChedSpaceInvadersGameOverLayer.SpaceInvadersGameOverScene (Window, this.starProvider.HitStars.Count, bonus);
 			var transitionToGameOver = new CCTransitionJumpZoom (0.3f, spaceInvadersGameOverScene);
 			Director.ReplaceScene (transitionToGameOver);
 		}
@@ -450,7 +450,7 @@ namespace chedSpaceInvaders.Shared
 
 		public static CCScene SpaceInvadersGameScene(CCWindow mainWindow)
 		{
-			return SceneProvider.GetScene<SpaceInvadersGameLayer> (mainWindow);
+			return SceneProvider.GetScene<ChedSpaceInvadersGameLayer> (mainWindow);
 		}
 	}
 }
