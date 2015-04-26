@@ -454,4 +454,3 @@ namespace chedSpaceInvaders.Shared
 		}
 	}
 }
-

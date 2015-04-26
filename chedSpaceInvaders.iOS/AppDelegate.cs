@@ -19,4 +19,3 @@ namespace chedSpaceInvaders.iOS
 		}
 	}
 }
-

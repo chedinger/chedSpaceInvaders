@@ -9,12 +9,16 @@
     <Import_RootNamespace>chedSpaceInvaders.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)SpaceInvadersApplicationDelegate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SceneProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MeteoriteProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StarsProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ChedSpaceInvadersGameLayer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ChedSpaceInvadersGameOverLayer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ChedSpaceInvadersStartLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layer\ChedSpaceInvadersGameLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layer\ChedSpaceInvadersGameOverLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Layer\ChedSpaceInvadersStartLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helper\MeteoriteProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helper\SceneProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helper\SpaceInvadersApplicationDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helper\StarsProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Layer\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helper\" />
   </ItemGroup>
 </Project>

@@ -68,6 +68,21 @@
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
     <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Content\.DS_Store" />
+    <None Include="Content\fonts\arial-22.xnb" />
+    <None Include="Content\hd\.DS_Store" />
+    <None Include="Content\hd\scrollingBG.png" />
+    <None Include="Content\hd\startupBG.jpg" />
+    <None Include="Content\hd\ufo.png" />
+    <None Include="Content\hd\animations\.DS_Store" />
+    <None Include="Content\hd\animations\spaceSprites.plist" />
+    <None Include="Content\hd\animations\spaceSprites.png" />
+    <None Include="Content\sounds\.DS_Store" />
+    <None Include="Content\sounds\collected.mp3" />
+    <None Include="Content\sounds\comet.mp3" />
+    <None Include="Content\sounds\explosion.mp3" />
+    <None Include="Content\sounds\shot.mp3" />
+    <None Include="Content\sounds\startup.mp3" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -80,4 +95,7 @@
   </ItemGroup>
   <Import Project="..\chedSpaceInvaders.Shared\chedSpaceInvaders.Shared.projitems" Label="Shared" Condition="Exists('..\chedSpaceInvaders.Shared\chedSpaceInvaders.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Content\" />
+  </ItemGroup>
 </Project>
